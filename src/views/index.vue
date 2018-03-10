@@ -52,70 +52,16 @@
                     <BreadcrumbItem>Home</BreadcrumbItem>
                     <BreadcrumbItem>Layout</BreadcrumbItem>
                 </Breadcrumb>
-                <Content :style="{padding: '24px 0', minHeight: '480px', background: '#fff'}">
+                <Content :style="{padding: '0px 0px', minHeight: '480px', background: '#fff'}">
                     <Layout>
-                        <Sider hide-trigger :style="{background: '#fff', minWidth:'380px'}">
-                            <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
-                                <Submenu name="PeekMeeting">
-                                    <template slot="title">
-                                        <Icon type="lightbulb" color="#000000"></Icon>
-                                        <!-- TODO: use component to show the info
-                                                    1. a counter down to show the begin time
-                                                    2. when start, change the Icon's color -->
-                                        冲顶
-                                    </template>
-                                    <!-- TODO: 1. whether should adjust the show style here ( the info may not show as this way )
-                                               2. when click, should show the details in right -->
-                                    <MenuItem name="PeekMeetingAns">Some answers</MenuItem>
-                                    <MenuItem name="PeekMeetingInfo">Info</MenuItem>
-                                </Submenu>
-                                <Submenu name="MillionHero">
-                                    <template slot="title">
-                                        <Icon type="lightbulb" color="#000000"></Icon>
-                                        百万
-                                    </template>
-                                    <MenuItem name="MillionHeroAns">Answers</MenuItem>
-                                    <MenuItem name="MillionHeroInfo">Some Info</MenuItem>
-                                </Submenu>
-                                <Submenu name="MillionHero">
-                                    <template slot="title">
-                                        <Icon type="lightbulb" color="#000000"></Icon>
-                                        百万
-                                    </template>
-                                    <MenuItem name="MillionHeroAns">Answers</MenuItem>
-                                    <MenuItem name="MillionHeroInfo">Some Info</MenuItem>
-                                </Submenu>
-                                <Submenu name="MillionHero">
-                                    <template slot="title">
-                                        <Icon type="lightbulb" color="#000000"></Icon>
-                                        百万
-                                    </template>
-                                    <MenuItem name="MillionHeroAns">Answers</MenuItem>
-                                    <MenuItem name="MillionHeroInfo">Some Info</MenuItem>
-                                </Submenu>
-                                <Submenu name="MillionHero">
-                                    <template slot="title">
-                                        <Icon type="lightbulb" color="#000000"></Icon>
-                                        百万
-                                    </template>
-                                    <MenuItem name="MillionHeroAns">Answers</MenuItem>
-                                    <MenuItem name="MillionHeroInfo">Some Info</MenuItem>
-                                </Submenu>
-                                
-                                <div style="background:#eee; padding: 20px; margin-top: 20px;">
-                                    <Card :bordered="false">
-                                        <p slot="title">公告</p>
-                                        <p> Enjoy~ </p>
-                                        <p>
-                                            <Icon type="android-mail"></Icon> timeline9001@gmail.com
-                                        </p>
-                                    </Card>
-                                </div>
-                            </Menu>
+                        <Sider hide-trigger :style="{background: '#fff', minWidth:'40%'}">
+                            <subInfo v-bind:gameInfo="gameInfo" v-bind:answerInfo="answerInfo"></subInfo>
+                            <announcementInfo></announcementInfo>
                         </Sider>
                         <Content :style="{padding: '24px', minHeight: '480px', background: '#fff'}">
-                            <!-- todo: use component to do the iframe -->
-                            <iframe src="https://www.baidu.com/s?wd=%E4%BA%91%E5%8D%97%E7%9A%84%E7%9C%81%E8%8A%B1" height="100%" width="100%" overflow-y='scroll' overflow-x='hidden'></iframe>
+                            <!-- todo: use components to do the iframe -->
+                            <Tag type="dot" color="green" style="float:right">标签一</Tag>
+                            <iframe src="https://www.baidu.com/s?wd=%E4%BA%91%E5%8D%97%E7%9A%84%E7%9C%81%E8%8A%B1" height="90%" width="100%" overflow-x='hidden'></iframe>
                         </Content>
                     </Layout>
                 </Content>
@@ -123,15 +69,42 @@
             <Layout :style="{padding: '0 50px', margin: '16px 0'}"> 
                 <Content :style="{padding: '24px 0', minHeight: '120px', background: '#fff'}">
                     some extra info here
+
                 </Content>
             </Layout>
             <Footer class="layout-footer-center">2018-now &copy; Answer It</Footer>
         </Layout>
     </div>
-</div>
 </template>
 <script>
+    import subInfo from './../components/subInfo'
+    import announcementInfo from './../components/announcementInfo'
+
     export default {
-        
+        data() {
+            return {
+                gameInfo: {
+                    name: '冲顶',
+                    description: 'this parent Info',
+                    timerInverval: 1000,
+                    schedule: [
+                    {
+                        startTime: '10:00:00'
+                    }
+                    ]
+                },
+                answerInfo :{
+                    question: 'this is parent question',
+                    answer: 'this is parent answer'
+                }
+            }
+        },
+        components: {
+            subInfo: subInfo,
+            announcementInfo: announcementInfo
+        },
+        methods: {
+
+        }
     }
 </script>

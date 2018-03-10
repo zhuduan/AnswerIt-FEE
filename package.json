@@ -1,7 +1,7 @@
 {
-  "name": "iview-project",
-  "version": "2.1.0",
-  "description": "A base project with Vue.js2、Vue-Router、webpack2 and with iView2.",
+  "name": "answer-it-project",
+  "version": "0.1.0",
+  "description": "the front end of answer project",
   "main": "index.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
