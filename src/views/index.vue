@@ -85,38 +85,22 @@
             return {
                 games: [
                     {
-                        gameInfo: {
-                            name: '冲顶',
-                            description: 'this parent Info',
-                            timerInverval: 1000,
-                            schedule: [
-                                {
-                                    startTime: '10:00:00'
-                                }
-                            ]
-                        },
-                        answerInfo :{
-                            question: 'this is parent question',
-                            answer: 'this is parent answer'
-                        }
-                    },
-                    {
-                        gameInfo: {
-                            name: '冲顶',
-                            description: 'this parent Info',
-                            timerInverval: 1000,
-                            schedule: [
-                                {
-                                    startTime: '10:00:00'
-                                }
-                            ]
-                        },
+                        name: '冲顶',
+                        description: 'this parent Info',
+                        timerInverval: 1000,
+                        schedule: [
+                            {
+                                startTime: '10:00:00'
+                            }
+                        ]
+                        ,
                         answerInfo :{
                             question: 'this is parent question',
                             answer: 'this is parent answer'
                         }
                     }
-                ]
+                ],
+                otherInfo: true
             }
         },
         components: {
