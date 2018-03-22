@@ -55,12 +55,12 @@
                 <Content :style="{padding: '12px 12px', minHeight: '480px', background: '#fff'}">
                     <Layout>
                         <Sider hide-trigger :style="{background: '#fff', minWidth:'40%'}">
-                            <subInfo v-bind:games="games" ></subInfo>
+                            <subInfo v-bind:gameConfigs="gameConfigs" v-bind:showInfo="testInfo" v-bind:currentGameInfo.sync="currentGameInfo"></subInfo>
                             <announcementInfo></announcementInfo>
                         </Sider>
                         <Content :style="{padding: '24px', minHeight: '480px', background: '#fff'}">
                             <Tag type="dot" color="green" style="float:right">标签一</Tag>
-                            <iframe id="contentFrame" src="https://www.baidu.com/s?wd=%E4%BA%91%E5%8D%97%E7%9A%84%E7%9C%81%E8%8A%B1" height="90%" width="100%" overflow-x='hidden'>
+                            <iframe id="contentFrame" src="https://www.baidu.com/s?wd=jetty" height="90%" width="100%" overflow-x='hidden'>
                             </iframe>
                         </Content>
                     </Layout>
@@ -83,23 +83,37 @@
     export default {
         data() {
             return {
-                games: [
+                gameConfigs: [
                     {
                         name: '冲顶',
                         description: 'this parent Info',
                         timerInverval: 1000,
                         schedule: [
                             {
-                                startTime: '10:00:00'
+                                startTime: '10:00:00',
+                                endTime: '10:30:00'
                             }
                         ]
-                        ,
-                        answerInfo :{
-                            question: 'this is parent question',
-                            answer: 'this is parent answer'
-                        }
+                    },
+                    {
+                        name: '冲顶2',
+                        description: 'this parent Info2',
+                        timerInverval: 1000,
+                        schedule: [
+                            {
+                                startTime: '10:00:00',
+                                endTime: '10:30:00'
+                            }
+                        ]
                     }
                 ],
+                currentGameInfo: {
+                    name: "this is subscriber",
+                    answerInfo: {
+                        question: "this is question",
+                        answer: "this is answer"
+                    }
+                },
                 otherInfo: true
             }
         },
@@ -109,9 +123,15 @@
         },
         methods: {
             showSearchResult: function(searchContent){
+                if ( !searchContent || 0 === searchContent.length ){
+                    return;
+                }
                 let showUrl = 'https://www.baidu.com/s?wd=' + searchContent;
                 let frame = document.getElementById('contentFrame');
                 frame.src = showUrl;
+            },
+            testInfo: function(){
+                alert("input is anything");
             }
         }
     }
