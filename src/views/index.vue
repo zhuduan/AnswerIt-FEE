@@ -55,7 +55,7 @@
                 <Content :style="{padding: '12px 12px', minHeight: '480px', background: '#fff'}">
                     <Layout>
                         <Sider hide-trigger :style="{background: '#fff', minWidth:'40%'}">
-                            <subInfo v-bind:gameConfigs="gameConfigs" v-bind:showInfo="testInfo" v-bind:currentGameInfo.sync="currentGameInfo"></subInfo>
+                            <subInfo v-bind:gameConfigs="gameConfigs" v-bind:showInfo="testInfo" v-on:new-answer-info="showSearchResult"></subInfo>
                             <announcementInfo></announcementInfo>
                         </Sider>
                         <Content :style="{padding: '24px', minHeight: '480px', background: '#fff'}">
@@ -102,18 +102,11 @@
                         schedule: [
                             {
                                 startTime: '10:00:00',
-                                endTime: '10:30:00'
+                                endTime: '23:30:00'
                             }
                         ]
                     }
                 ],
-                currentGameInfo: {
-                    name: "this is subscriber",
-                    answerInfo: {
-                        question: "this is question",
-                        answer: "this is answer"
-                    }
-                },
                 otherInfo: true
             }
         },
@@ -122,11 +115,11 @@
             announcementInfo: announcementInfo
         },
         methods: {
-            showSearchResult: function(searchContent){
-                if ( !searchContent || 0 === searchContent.length ){
+            showSearchResult: function(msg){
+                if ( !msg || 0 === msg.length ){
                     return;
                 }
-                let showUrl = 'https://www.baidu.com/s?wd=' + searchContent;
+                let showUrl = 'https://www.baidu.com/s?wd=' + msg.question;
                 let frame = document.getElementById('contentFrame');
                 frame.src = showUrl;
             },
