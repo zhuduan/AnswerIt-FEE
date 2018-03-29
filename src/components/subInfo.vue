@@ -1,21 +1,22 @@
 <template>
     <Collapse>
         <Panel v-for="game in gameConfigs" :key="game.name" :id="game.name">
-            {{ game.name }}   <span style="float:right" name="time"><Icon type="ios-navigate"></Icon>&nbsp&nbsp<span>next:10:00:00</span></span>
+            <Tooltip :content="game.description">
+                {{ game.name }}
+            </Tooltip>
+            <span style="float:right" name="time"><Icon type="ios-navigate"></Icon>&nbsp&nbsp<span>next:10:00:00</span></span>
             <p slot="content">
-                <Tooltip :content="game.description">
-                    <Card :bordered="false" style="width: 100%">
-                        <p slot="title">
-                            <Row>
-                                <Col span="18"> <span :id="game.name + 'question'"> default question: xxxx </span></Col>
-                                <Col span="6"> <Button @click="subcribeThis(game.name)" type="ghost" shape="circle" size="small">显示搜索结果</Button> </Col>
-                            </Row>
-                        </p>
-                        <p>
-                            <span :id="game.name + 'answer'"> default answer </span>
-                        </p>
-                    </Card>
-                </Tooltip>
+                <Card :bordered="false" style="width: 100%">
+                    <p slot="title">
+                        <Row>
+                            <Col span="18"> <span :id="game.name + 'question'"> default question: xxxx </span></Col>
+                            <Col span="6"> <Button @click="subcribeThis(game.name)" type="ghost" shape="circle" size="small">显示搜索结果</Button> </Col>
+                        </Row>
+                    </p>
+                    <p>
+                        <span :id="game.name + 'answer'"> default answer </span>
+                    </p>
+                </Card>
             </p>
         </Panel>
     </Collapse>
@@ -99,6 +100,7 @@
                         //  post to get info
                         let result = { name:'xxx', quetion:'hello', answer:'world' };
 
+                        // use an asyn method to do  
                         document.getElementById(value.name + 'question').textContent = result.quetion;
                         document.getElementById(value.name + 'answer').textContent = result.answer;
                     }
