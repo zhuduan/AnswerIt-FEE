@@ -55,7 +55,7 @@
                 <Content :style="{padding: '12px 12px', minHeight: '480px', background: '#fff'}">
                     <Layout>
                         <Sider hide-trigger :style="{background: '#fff', minWidth:'40%'}">
-                            <subInfo v-bind:gameConfigs="gameConfigs" v-bind:showInfo="testInfo" v-on:new-answer-info="showSearchResult"></subInfo>
+                            <subInfo v-bind:gameConfigs="gameConfigs" v-on:new-answer-info="showSearchResult"></subInfo>
                             <announcementInfo></announcementInfo>
                         </Sider>
                         <Content :style="{padding: '24px', minHeight: '480px', background: '#fff'}">
@@ -87,7 +87,6 @@
                     {
                         name: '冲顶',
                         description: 'this parent Info',
-                        timerInverval: 1000,
                         schedule: [
                             {
                                 startTime: '10:00:00',
@@ -98,7 +97,6 @@
                     {
                         name: '冲顶2',
                         description: 'this parent Info2',
-                        timerInverval: 1000,
                         schedule: [
                             {
                                 startTime: '10:00:00',
@@ -109,6 +107,9 @@
                 ],
                 otherInfo: true
             }
+        },
+        mounted() {
+            this.getConfigList();
         },
         components: {
             subInfo: subInfo,
@@ -125,6 +126,18 @@
             },
             testInfo: function(){
                 alert("input is anything");
+            },
+            getConfigList: function(){
+                let that = this;
+                this.$http.get('http://localhost:8080/config/list')
+                    .then(function (response) {
+                        if(response.data['status'] == 200) {
+                            that.gameConfigs = JSON.parse(response.data.data);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }
