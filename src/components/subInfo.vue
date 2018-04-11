@@ -27,6 +27,7 @@
     let dispatchEvent = false;
     let currentQuestion = "hello";
     let currentAnswer = "wolrd";
+    let count = 0;
     
     export default {
         props: {
@@ -43,11 +44,8 @@
 
             }
         },
-        mounted(){
-            this.updateInfo(this.gameConfigs);
-            let timer = setInterval(
-                this.updateInfo(this.gameConfigs),
-                1000);
+        updated(){
+            let timer = setInterval(() => {this.updateInfo(this.gameConfigs)}, 1000);
         },
         methods:{
             // we should pass the value to the method rather than use the props, for in method to get the props may hava problems
@@ -61,7 +59,9 @@
                 //  check if should begin the game, and the next begin time
                 for ( let value of configs ) {
                     let date = new Date();
-                    let currentTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+                    let currentTime = (date.getHours()<10 ?  '0' : '') + date.getHours()
+                        + ':' + (date.getMinutes()<10 ?  '0' : '') + date.getMinutes()
+                        + ':' + (date.getSeconds()<10 ?  '0' : '') + date.getSeconds();
                     let nextTime = currentTime;
                     let beginFlag = false;
                     for (let s of value.schedule) {
@@ -98,11 +98,7 @@
                     // when game started, post to server to get the game info
                     if (beginFlag) {
                         //  post to get info
-                        let result = { name:'xxx', quetion:'hello', answer:'world' };
-
-                        // use an asyn method to do  
-                        document.getElementById(value.name + 'question').textContent = result.quetion;
-                        document.getElementById(value.name + 'answer').textContent = result.answer;
+                        let result = this.getAnswer(value.name);
                     }
                 }
             },
@@ -121,6 +117,17 @@
                 this.currentAnswer = panelKey;
                 //alert('key: ' + this.currentGameKey );
                 this.notify();
+            },
+            getAnswer: function(gameName){
+                this.$http.get('http://localhost:8080/answer/game/'+gameName)
+                    .then(function (response) {
+                        let answerInfo = response.data.data;
+                        document.getElementById(gameName + 'question').textContent = answerInfo.question;
+                        document.getElementById(gameName + 'answer').textContent = answerInfo.answer;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }
